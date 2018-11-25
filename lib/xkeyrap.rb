@@ -9,9 +9,9 @@ require 'uinput/device'
 
 module Xkeyrap
   class Cli
-    def self.run(device)
+    def self.run(keyboard_device)
       display = XlibObj::Display.new(':0')
-      device = Uinput::Device.new do
+      virtual_device = Uinput::Device.new do
         self.name = "Xkeyrap virtual device"
         self.type = LinuxInput::BUS_VIRTUAL
 
@@ -23,10 +23,10 @@ module Xkeyrap
         self.add_event(:EV_SYN)
       end
 
-      keyboard = Evdev.new(device)
+      keyboard = Evdev.new(keyboard_device)
       keyboard.grab
 
-      command = Command.new(device, nil)
+      command = Command.new(virtual_device, nil)
 
       keyboard.on(*Xkeyrap::Key::ALL_KEYS) do |state, key|
         root_window = display.screens.first.root_window
