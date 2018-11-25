@@ -2,5 +2,7 @@
 
 require 'xkeyrap'
 device = ARGV[1]
+puts "#########################################"
 puts "grab device: #{device}"
+puts "#########################################"
 Xkeyrap::Cli.run(device)

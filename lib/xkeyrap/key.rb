@@ -98,9 +98,9 @@ module Xkeyrap
       :KEY_F10,
       :KEY_F11,
       :KEY_F12,
-      :MUTE,
-      :VOLUMEDOWN,
-      :VOLUMEUP
+      :KEY_MUTE,
+      :KEY_VOLUMEDOWN,
+      :KEY_VOLUMEUP
     ]
 
     ALL_KEYS = NUMBER_KEYS + MISC_KEYS + LETTER_KEYS + MODIFIER_KEYS + FUNCTION_KEYS

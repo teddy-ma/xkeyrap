@@ -9,7 +9,6 @@ require 'uinput/device'
 
 module Xkeyrap
   class Cli
-
     def self.run(device)
       display = XlibObj::Display.new(':0')
       device = Uinput::Device.new do
@@ -25,15 +24,11 @@ module Xkeyrap
       end
 
       keyboard = Evdev.new(device)
-
-
-      #puts keyboard.supports_event? :KEY_ENTER
-      #puts keyboard.supports_event? :KEY_KPENTER
       keyboard.grab
 
       command = Command.new(device, nil)
 
-      key_handler = keyboard.on(*Xkeyrap::Key::ALL_KEYS) do |state, key|
+      keyboard.on(*Xkeyrap::Key::ALL_KEYS) do |state, key|
         root_window = display.screens.first.root_window
         top_level_windows = root_window.property(:_NET_CLIENT_LIST_STACKING)
         focused_window = display.focused_window
