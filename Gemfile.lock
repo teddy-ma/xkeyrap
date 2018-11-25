@@ -1,11 +1,11 @@
 PATH
   remote: .
   specs:
-    xkeyrap (0.0.1)
-      evdev
-      libevdev
-      uinput-device
-      xlib-objects
+    xkeyrap (0.0.4)
+      evdev (~> 1.0)
+      libevdev (~> 1.0)
+      uinput-device (~> 0.4)
+      xlib-objects (~> 0.7)
 
 GEM
   remote: https://rubygems.org/

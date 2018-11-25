@@ -10,7 +10,7 @@ require 'uinput/device'
 module Xkeyrap
   class Cli
 
-    def self.run
+    def self.run(device)
       display = XlibObj::Display.new(':0')
       device = Uinput::Device.new do
         self.name = "Xkeyrap virtual device"
@@ -24,10 +24,11 @@ module Xkeyrap
         self.add_event(:EV_SYN)
       end
 
-      keyboard = Evdev.new('/dev/input/event4')
+      keyboard = Evdev.new(device)
 
-      puts keyboard.supports_event? :KEY_ENTER
-      puts keyboard.supports_event? :KEY_KPENTER
+
+      #puts keyboard.supports_event? :KEY_ENTER
+      #puts keyboard.supports_event? :KEY_KPENTER
       keyboard.grab
 
       command = Command.new(device, nil)

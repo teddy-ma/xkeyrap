@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'xkeyrap'
-
-Xkeyrap::Cli.run
+device = ARGV[1]
+puts "grab device: #{device}"
+Xkeyrap::Cli.run(device)
