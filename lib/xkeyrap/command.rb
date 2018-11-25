@@ -31,10 +31,9 @@ module Xkeyrap
     end
 
     def receive(state, key, wm_class_name = "global")
-      puts "origin: #{wm_class_name} | #{state} | #{key}"
       sub_json = self.config[wm_class_name.to_sym] || self.config[:global]
       mapped_key = sub_json[key] || self.config[:global][key] || key
-      puts "mapped: #{wm_class_name} | #{state} | #{mapped_key}"
+      puts "#{wm_class_name} | #{state} | origin: #{key} | mapped: #{mapped_key}"
       self.output_device.send_event(:EV_KEY, mapped_key, state)
       self.output_device.send_event(:EV_SYN, :SYN_REPORT)
     end

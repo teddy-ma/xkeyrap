@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'xkeyrap'
-keyboard_device = ARGV[1]
+keyboard_device = ARGV[0]
 puts "#########################################"
 puts "grab device: #{keyboard_device}"
 puts "#########################################"
