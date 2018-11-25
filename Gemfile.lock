@@ -1,0 +1,52 @@
+PATH
+  remote: .
+  specs:
+    xkeyrap (0.0.1)
+      evdev
+      libevdev
+      uinput-device
+      xlib-objects
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    callbacks_attachable (2.3.1)
+    coderay (1.1.2)
+    evdev (1.0.0)
+      callbacks_attachable (~> 2.3)
+      libevdev (~> 1.0)
+    ffi (1.9.25)
+    libevdev (1.0.0)
+      linux_input (~> 1.0)
+    linux_input (1.0.0)
+      ffi (~> 1.9)
+    method_source (0.9.2)
+    minitest (5.11.3)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    rake (10.5.0)
+    uinput (1.2.0)
+      linux_input (~> 1.0)
+    uinput-device (0.4.0)
+      uinput (~> 1.1)
+    xlib (1.2.0)
+      ffi (~> 1.9)
+    xlib-objects (0.7.6)
+      xlib (~> 1.2)
+      xlib-xinput2 (~> 1.0)
+    xlib-xinput2 (1.0.0)
+      xlib (~> 1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.16)
+  minitest (~> 5.0)
+  pry (~> 0.12.2)
+  rake (~> 10.0)
+  xkeyrap!
+
+BUNDLED WITH
+   1.17.1
