@@ -61,10 +61,14 @@ module Xkeyrap
       parent   = FFI::MemoryPointer.new :Window
       number   = FFI::MemoryPointer.new :uint
       children = FFI::MemoryPointer.new :pointer
-      q = Xlib.XQueryTree(display.to_native, focused_window.to_native, root, parent, children, number)
-      parent_window_id = parent.read(:int)
-      parent_window = top_level_windows.select {|tlw| tlw.id == parent_window_id }.first
-      parent_window.property("WM_CLASS")[1]
+      begin
+        q = Xlib.XQueryTree(display.to_native, focused_window.to_native, root, parent, children, number)
+        parent_window_id = parent.read(:int)
+        parent_window = top_level_windows.select {|tlw| tlw.id == parent_window_id }.first
+        parent_window.property("WM_CLASS")[1]
+      rescue
+        "global"
+      end
     end
   end
 end

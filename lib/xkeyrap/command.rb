@@ -1,6 +1,5 @@
 require "evdev"
 require 'libevdev'
-
 require 'uinput/device'
 
 module Xkeyrap
