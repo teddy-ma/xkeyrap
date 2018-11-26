@@ -40,6 +40,14 @@ module Xkeyrap
       :KEY_PAGEDOWN,
       :KEY_INSERT,
       :KEY_DELETE,
+      :KEY_DASHBOARD,
+      :KEY_MINUS,
+      :KEY_EQUAL,
+      :KEY_LEFTBRACE,
+      :KEY_RIGHTBRACE,
+      :KEY_COMMA,
+      :KEY_DOT,
+      :KEY_SLASH
     ]
 
     LETTER_KEYS = [
