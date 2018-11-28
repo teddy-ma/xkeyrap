@@ -113,5 +113,9 @@ module Xkeyrap
 
     ALL_KEYS = NUMBER_KEYS + MISC_KEYS + LETTER_KEYS + MODIFIER_KEYS + FUNCTION_KEYS
 
+    def self.is_modifier_key?(key)
+      MODIFIER_KEYS.include?(key)
+    end
+
   end
 end
