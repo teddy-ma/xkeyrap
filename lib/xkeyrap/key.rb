@@ -80,9 +80,7 @@ module Xkeyrap
     ]
 
     MODIFIER_KEYS = [
-      :KEY_ESC,
-      :KEY_LEFTSHIFT,
-      :KEY_RIGHTSHIFT,
+      :KEY_ESC,     
       :KEY_RIGHTALT,
       :KEY_LEFTALT,
       :KEY_SPACE,
@@ -108,7 +106,9 @@ module Xkeyrap
       :KEY_F12,
       :KEY_MUTE,
       :KEY_VOLUMEDOWN,
-      :KEY_VOLUMEUP
+      :KEY_VOLUMEUP,
+      :KEY_LEFTSHIFT,
+      :KEY_RIGHTSHIFT
     ]
 
     ALL_KEYS = NUMBER_KEYS + MISC_KEYS + LETTER_KEYS + MODIFIER_KEYS + FUNCTION_KEYS

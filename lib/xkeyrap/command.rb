@@ -29,18 +29,41 @@ module Xkeyrap
     end
 
     def receive(state, key, wm_class_name = "global")
-      if Key.is_modifier_key?(key) && state == 1
-        self.modifier_key = key # and do nothing to output
+      if Key.is_modifier_key?(key)
+        if state == 1 || state == 2
+          self.modifier_key = key # and do nothing to output
+        else # state = 0
+          self.modifier_key = nil
+        end
       else
         if self.modifier_key
-          output_event(self.modifier_key, 1)
-          output_event(key, state)
-          output_event(self.modifier_key, 0)
-          self.modifier_key = nil
+          transport(self.modifier_key, key, wm_class_name)
         else
           output_event(key, state, wm_class_name)
         end
       end
+    end
+
+    def transport(modifier_key, key, wm_class_name)
+      if wm_class_name == "Google-chrome"
+        if modifier_key == :KEY_LEFTMETA && key == :KEY_A
+          puts "win+a"
+          output_event(:KEY_HOME, 1, wm_class_name)
+        end
+        if modifier_key == :KEY_LEFTMETA && key == :KEY_E
+          puts "win+e"
+          output_event(:KEY_END, 1, wm_class_name)
+        end      
+      else
+        output_combine(modifier_key, key)
+      end
+    end
+
+    def output_combine(modifier_key, key)
+      output_event(self.modifier_key, 1)
+      output_event(key, state)
+      output_event(self.modifier_key, 0)
+      self.modifier_key = nil
     end
 
     def output_event(key, state, wm_class_name)
