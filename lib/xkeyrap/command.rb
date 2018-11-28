@@ -61,10 +61,12 @@ module Xkeyrap
             :KEY_N => :KEY_DOWN,
             :KEY_P => :KEY_UP
           }
-          mapped_key = mapped_key_config[key] || mapped_key
-          puts "transport mapped key is #{mapped_key}"
-          output_event(mapped_key, state, wm_class_name)
-          self.modifier_key = nil
+          if mapped_key = mapped_key_config[key]
+            puts "transport mapped key is #{mapped_key}"
+            output_event(mapped_key, state, wm_class_name)
+          else
+            output_combine(mapped_modifier_key, key, state, wm_class_name)
+          end
         else # normal combine (e.g ctrl+c ctrl+v)
           output_combine(mapped_modifier_key, key, state, wm_class_name)
         end
