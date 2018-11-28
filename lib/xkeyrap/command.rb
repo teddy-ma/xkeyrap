@@ -38,12 +38,12 @@ module Xkeyrap
           output_event(self.modifier_key, 0)
           self.modifier_key = nil
         else
-          output_event(key, state)
+          output_event(key, state, wm_class_name)
         end
       end
     end
 
-    def output_event(key, state)
+    def output_event(key, state, wm_class_name)
       sub_json = self.config[wm_class_name.to_sym] || self.config[:global]
       mapped_key = sub_json[key] || self.config[:global][key] || key
       puts "#{wm_class_name} | #{state} | origin: #{key} | mapped: #{mapped_key}"
