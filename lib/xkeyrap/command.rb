@@ -45,17 +45,38 @@ module Xkeyrap
     end
 
     def transport(modifier_key, key, wm_class_name)
+      sub_json = self.config[wm_class_name.to_sym] || self.config[:global]
+      mapped_modifier_key = sub_json[modifier_key] || self.config[:global][modifier_key] || modifier_key
+      
       if wm_class_name == "Google-chrome"
-        if modifier_key == :KEY_LEFTMETA && key == :KEY_A
-          puts "win+a"
-          output_event(:KEY_HOME, 1, wm_class_name)
-        end
-        if modifier_key == :KEY_LEFTMETA && key == :KEY_E
-          puts "win+e"
-          output_event(:KEY_END, 1, wm_class_name)
+        if mapped_modifier_key == :KEY_LEFTMETA
+          if key == :KEY_A
+            output_event(:KEY_HOME, 1, wm_class_name)
+            output_event(:KEY_HOME, 0, wm_class_name)
+          end
+          if key == :KEY_E
+            output_event(:KEY_END, 1, wm_class_name)
+            output_event(:KEY_END, 0, wm_class_name)
+          end
+          if key == :KEY_B
+            output_event(:KEY_LEFT, 1, wm_class_name)
+            output_event(:KEY_LEFT, 0, wm_class_name)
+          end
+          if key == :KEY_F
+            output_event(:KEY_RIGHT, 1, wm_class_name)
+            output_event(:KEY_RIGHT, 0, wm_class_name)
+          end
+          if key == :KEY_N
+            output_event(:KEY_DOWN,, 1, wm_class_name)
+            output_event(:KEY_DOWN,, 0, wm_class_name)
+          end
+          if key == :KEY_P
+            output_event(:KEY_UP, 1, wm_class_name)
+            output_event(:KEY_UP, 0, wm_class_name)
+          end
         end      
       else
-        output_combine(modifier_key, key)
+        output_combine(mapped_modifier_key, key)
       end
     end
 
