@@ -83,7 +83,6 @@ module Xkeyrap
       :KEY_ESC,     
       :KEY_RIGHTALT,
       :KEY_LEFTALT,
-      :KEY_SPACE,
       :KEY_CAPSLOCK,
       :KEY_LEFTMETA,
       :KEY_RIGHTMETA,
@@ -108,7 +107,8 @@ module Xkeyrap
       :KEY_VOLUMEDOWN,
       :KEY_VOLUMEUP,
       :KEY_LEFTSHIFT,
-      :KEY_RIGHTSHIFT
+      :KEY_RIGHTSHIFT,
+      :KEY_SPACE
     ]
 
     ALL_KEYS = NUMBER_KEYS + MISC_KEYS + LETTER_KEYS + MODIFIER_KEYS + FUNCTION_KEYS

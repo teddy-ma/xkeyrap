@@ -31,14 +31,17 @@ module Xkeyrap
     def receive(state, key, wm_class_name = "global")
       if Key.is_modifier_key?(key)
         if state == 1 || state == 2
+          puts "set modifier key: #{key}"
           self.modifier_key = key # and do nothing to output
         else # state = 0
+          puts "clear modifier key: #{self.modifier_key}"
           self.modifier_key = nil
         end
-      else
+      else # normal key
         if self.modifier_key
           transport(self.modifier_key, key, state, wm_class_name)
         else
+          puts "normal key: #{key}"
           output_event(key, state, wm_class_name)
         end
       end
@@ -50,40 +53,37 @@ module Xkeyrap
 
       if wm_class_name == "Google-chrome"
         if mapped_modifier_key == :KEY_LEFTMETA
-          if key == :KEY_A
-            output_event(:KEY_HOME, 1, wm_class_name)
-            output_event(:KEY_HOME, 0, wm_class_name)
-          end
-          if key == :KEY_E
-            output_event(:KEY_END, 1, wm_class_name)
-            output_event(:KEY_END, 0, wm_class_name)
-          end
-          if key == :KEY_B
-            output_event(:KEY_LEFT, 1, wm_class_name)
-            output_event(:KEY_LEFT, 0, wm_class_name)
-          end
-          if key == :KEY_F
-            output_event(:KEY_RIGHT, 1, wm_class_name)
-            output_event(:KEY_RIGHT, 0, wm_class_name)
-          end
-          if key == :KEY_N
-            output_event(:KEY_DOWN, 1, wm_class_name)
-            output_event(:KEY_DOWN, 0, wm_class_name)
-          end
-          if key == :KEY_P
-            output_event(:KEY_UP, 1, wm_class_name)
-            output_event(:KEY_UP, 0, wm_class_name)
-          end
+          mapped_key_config = {
+            :KEY_A => :KEY_HOME,
+            :KEY_E => :KEY_END,
+            :KEY_B => :KEY_LEFT,
+            :KEY_F => :KEY_RIGHT,
+            :KEY_N => :KEY_DOWN,
+            :KEY_P => :KEY_UP
+          }
+          mapped_key = mapped_key_config[key] || mapped_key
+          puts "transport mapped key is #{mapped_key}"
+          output_event(:mapped_key, state, wm_class_name)
+          self.modifier_key = nil
+        else # normal combine (e.g ctrl+c ctrl+v)
+          output_combine(mapped_modifier_key, key, state, wm_class_name)
         end
       else
         output_combine(mapped_modifier_key, key, state, wm_class_name)
       end
     end
 
-    def output_combine(modifier_key, key, state, wm_class_name)
-      output_event(self.modifier_key, 1)
-      output_event(key, state)
-      output_event(self.modifier_key, 0)
+    def output_combine(modifier_key, key, state, wm_class_name)      
+      puts "output combine: #{modifier_key}, #{key}, #{state}, #{wm_class_name}"
+      # output_event(self.modifier_key, 1, wm_class_name)
+      # output_event(key, state, wm_class_name)
+      # output_event(self.modifier_key, 0, wm_class_name)      
+      if state == 1
+        self.output_device.send_event(:EV_KEY, self.modifier_key, 1)
+        self.output_device.send_event(:EV_KEY, key, state)
+        self.output_device.send_event(:EV_KEY, self.modifier_key, 0)
+      end
+      self.output_device.send_event(:EV_SYN, :SYN_REPORT)
       self.modifier_key = nil
     end
 
