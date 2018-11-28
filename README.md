@@ -10,3 +10,10 @@ Xkeyrap 是一个受 [https://github.com/mooz/xkeysnail](xkeysnail) 启发的项
 
 + support config file
 + support combine keys
+
+## Usage
+
+```sh
+sudo gem install xkeyrap # need sudo
+sudo xkeyrap /dev/input/your-keyboard
+```
