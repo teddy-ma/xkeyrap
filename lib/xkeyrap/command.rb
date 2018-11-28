@@ -63,7 +63,7 @@ module Xkeyrap
           }
           mapped_key = mapped_key_config[key] || mapped_key
           puts "transport mapped key is #{mapped_key}"
-          output_event(:mapped_key, state, wm_class_name)
+          output_event(mapped_key, state, wm_class_name)
           self.modifier_key = nil
         else # normal combine (e.g ctrl+c ctrl+v)
           output_combine(mapped_modifier_key, key, state, wm_class_name)
@@ -75,16 +75,9 @@ module Xkeyrap
 
     def output_combine(modifier_key, key, state, wm_class_name)      
       puts "output combine: #{modifier_key}, #{key}, #{state}, #{wm_class_name}"
-      # output_event(self.modifier_key, 1, wm_class_name)
-      # output_event(key, state, wm_class_name)
-      # output_event(self.modifier_key, 0, wm_class_name)      
-      if state == 1
-        self.output_device.send_event(:EV_KEY, self.modifier_key, 1)
-        self.output_device.send_event(:EV_KEY, key, state)
-        self.output_device.send_event(:EV_KEY, self.modifier_key, 0)
-      end
-      self.output_device.send_event(:EV_SYN, :SYN_REPORT)
-      self.modifier_key = nil
+      self.output_event(self.modifier_key, 1, wm_class_name)
+      self.output_event(key, state, wm_class_name)
+      self.output_event(self.modifier_key, 0, wm_class_name)      
     end
 
     def output_event(key, state, wm_class_name)
