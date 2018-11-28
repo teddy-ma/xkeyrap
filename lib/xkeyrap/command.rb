@@ -37,14 +37,14 @@ module Xkeyrap
         end
       else
         if self.modifier_key
-          transport(self.modifier_key, key, wm_class_name)
+          transport(self.modifier_key, key, state, wm_class_name)
         else
           output_event(key, state, wm_class_name)
         end
       end
     end
 
-    def transport(modifier_key, key, wm_class_name)
+    def transport(modifier_key, key, state, wm_class_name)
       sub_json = self.config[wm_class_name.to_sym] || self.config[:global]
       mapped_modifier_key = sub_json[modifier_key] || self.config[:global][modifier_key] || modifier_key
 
@@ -76,11 +76,11 @@ module Xkeyrap
           end
         end
       else
-        output_combine(mapped_modifier_key, key)
+        output_combine(mapped_modifier_key, key, state, wm_class_name)
       end
     end
 
-    def output_combine(modifier_key, key)
+    def output_combine(modifier_key, key, state, wm_class_name)
       output_event(self.modifier_key, 1)
       output_event(key, state)
       output_event(self.modifier_key, 0)
