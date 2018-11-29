@@ -75,11 +75,15 @@ module Xkeyrap
       end
     end
 
-    def output_combine(modifier_key, key, state, wm_class_name)      
+    def output_combine(modifier_key, key, state, wm_class_name)
       puts "output combine: #{modifier_key}, #{key}, #{state}, #{wm_class_name}"
       self.output_event(self.modifier_key, 1, wm_class_name)
       self.output_event(key, state, wm_class_name)
-      self.output_event(self.modifier_key, 0, wm_class_name)      
+      if state == 2
+        puts "keep key ....."
+      else
+        self.output_event(self.modifier_key, 0, wm_class_name)
+      end
     end
 
     def output_event(key, state, wm_class_name)
